@@ -1,24 +1,28 @@
 package src.day1;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
-public class Day1 {
-
+public class Day1part2 {
+    /*
+    New objective:
+    - How often each number from the left list appears in the right list
+    - "Similarity score" by adding up each number in the left list after multiplying it by the number of times that number appears in the right list
+     */
     public static void main(String[] args) {
-//        String input = """
-//                3   4
-//                4   3
-//                2   5
-//                1   3
-//                3   9
-//                3   3
-//                """;
 
         BufferedReader reader;
         List<Integer> left = new ArrayList<>();
         List<Integer> right = new ArrayList<>();
+        // Using a hashmap to keep a counter for each value in the left list
+        // Key is left number, Value is how many times the left number appears in the right
+        HashMap<Integer, Integer> map = new HashMap<>();
+
         try {
             File file = new File("src/day1/input.txt");
             reader = new BufferedReader(new FileReader(file));
@@ -39,19 +43,16 @@ public class Day1 {
         }
 
         // Sorting
-        left.sort((a, b) -> a - b);
         right.sort((a, b) -> a - b);
-
+        for(Integer i : right) {
+            map.put(i, map.getOrDefault(i, 0) + 1);
+        }
         int answer = 0;
         for(int i = 0; i < left.size(); i++) {
-            int tmp = Math.abs(left.get(i) - right.get(i));
-            answer += tmp;
+            if(map.containsKey(left.get(i))) {
+                answer += left.get(i) * map.get(left.get(i));
+            }
         }
-
-        System.out.println("AFTER SORT");
-        System.out.println("LEFT: " + left);
-        System.out.println("RIGHT: " + right);
-
         System.out.println("ANSWER: " + answer);
 
     }

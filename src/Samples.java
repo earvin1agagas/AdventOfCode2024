@@ -18,7 +18,7 @@ public class Samples {
                 3   3
                 """;
 
-           List<Integer> left = new ArrayList<>();
+            List<Integer> left = new ArrayList<>();
             List<Integer> right = new ArrayList<>();
             // Using a hashmap to keep a counter for each value in the left list
             // Key is left number, Value is how many times the left number appears in the right
@@ -37,9 +37,9 @@ public class Samples {
             }
             int answer = 0;
 
-            for (int i = 0; i < left.size(); i++) {
-                if(map.containsKey(left.get(i))) {
-                    answer += left.get(i) * map.get(left.get(i));
+            for (Integer integer : left) {
+                if (map.containsKey(integer)) {
+                    answer += integer * map.get(integer);
                 }
             }
             System.out.println("ANSWER: " + answer);
